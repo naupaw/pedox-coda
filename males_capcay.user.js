@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           Males capcay
 // @namespace      pedox
-// @description    buat yang males matematika
+// @description    buat yang males matematika seperti ane :cool:
 // @include        http://www.kaskus.us/newreply.php?*
 // ==/UserScript==
 
