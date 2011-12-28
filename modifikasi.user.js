@@ -79,8 +79,9 @@ function wew(data){
 		if(hasil){
 			var hash = $(data).find('#hash').val();
 			var token = $(data).find('div[style="margin-top:6px"]').html();
-			alert(hasil);
+			//alert(hasil);
 			$('#recaptcha_container').html( 'EEEEHH<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+ token);
+			$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
 			//$('#humanverify').val(hasil);
 			//$('label[for="humanverify"]').append(' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>');
 			//$('#humanverify').after('<br/><small>Jangan Gunakan Skrip ini untuk tujuan ngejunk atau anda akan bangun rumah</small> -Pedox-');
@@ -1506,25 +1507,31 @@ function qr_ajax_post(reply_html){
     GM_XHR.cached = true;
     GM_XHR.request(spost.toString(),'post', qr_ajax_post);
 	*/
+	$('#recaptcha_container').append('Loanjing !!! harap bersabar');
 	$.ajax({
 	  url: prep[1],
 	  cache: false,
 	  type: "POST",
 	  data: {"humanverify[hash]" : $("input[name='humanverify[hash]']").val(), 
 			"humanverify[input]" : $("input[name='humanverify[input]']").val(), 
-			"message" : $("#vB_Editor_001_textarea").val(),
+			"message" : template_wrapper($("#vB_Editor_001_textarea").val()),
 			"securitytoken": $("input[name='securitytoken']").val(),
 			"t":$("input[name='t']").val(),
 			"p":$("input[name='p']").val(),
 			"loggedinuser":$("input[name='loggedinuser']").val(),
-			"do":"postreply"},
+			"do":"postreply",
+			"wysiwyg":0,
+			"parseurl":1},
 	  success: function(html){
+		  
 		qr_ajax_post(html);
 		window.location.href=window.location.href
 	  },
 	  error: function(html){
-		qr_ajax_post(html);
-		//window.location.href=window.location.href
+		//qr_ajax_post(html);
+		location.reload(false);
+		
+		$('#recaptcha_container').html('Berasil Di Post gan !!! <a href="'+document.URL+'">Klik disini kalo lama banet</a>');
 	  }
 	});
 
