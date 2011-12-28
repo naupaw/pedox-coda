@@ -1520,6 +1520,11 @@ function qr_ajax_post(reply_html){
 			"do":"postreply"},
 	  success: function(html){
 		qr_ajax_post(html);
+		window.location.href=window.location.href
+	  },
+	  error: function(html){
+		qr_ajax_post(html);
+		//window.location.href=window.location.href
 	  }
 	});
 
@@ -7351,4 +7356,3 @@ init();
 
 })();
 /* Mod By Idx. */
-
