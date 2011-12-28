@@ -147,7 +147,7 @@ const OPTIONS_BOX = {
  ,KEY_SAVE_SCUSTOM_ALT:      ['0'] // use alt instead of thumbnail
  ,KEY_SAVE_SCUSTOM_NOPARSE:  ['0'] // dont parse custom smiley tag. eg. tag=babegenit. BBCODE=[[babegenit]
  
- ,KEY_SAVE_QR_USE_RECAPCAY:  ['1'] // state of capcay mode
+ ,KEY_SAVE_QR_USE_RECAPCAY:  ['0'] // state of capcay mode
  ,KEY_SAVE_QR_RECAPCAY_PROP: ['clean,0'] // recapcay theme, is_simple_mode
  
  ,KEY_SAVE_PRELOAD_RATE: ['0'] // whether donatur need to preload rate or not
