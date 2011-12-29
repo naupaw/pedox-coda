@@ -245,8 +245,7 @@ function wew(data){
 			var hash = $(data).find('#hash').val();
 			var token = $(data).find('div[style="margin-top:6px"]').html();
 			//alert(hasil);
-			$('.sayapkiri').append('<div id="waw"></div>');
-			$('.sayapkiri #waw').html( hasil + ' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>'+
+			$('.sayapkiri .waw').html( hasil + ' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>'+
 											'<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+
 											'<input type="hidden" name="humanverify[hash]" value="'+hash+'"/>');
 			//$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
@@ -259,7 +258,7 @@ function wew(data){
 
 function langsung_post(){
 	$('#rate_thread').css({display:'block'});
-	$('#rate_thread img').after('Bentar gan... ane lagi ngitung');
+	$('.sayapkiri .waw').html('Bentar gan... ane lagi ngitung');
 	$('#qr_prepost_submit').attr({'disabled':'disabled'});
 	var url = $('tr[valign="bottom"] td a').attr('href');
 	$.ajax({
@@ -274,7 +273,7 @@ function langsung_post(){
 	  },
 	  error: function(html){
 			$('#rate_thread').css({display:'none'});
-			$('.sayapkiri').append('<div id="waw">Aduh... ane ga bisa ngitung :hammer:</div>');
+			$('.sayapkiri .waw').html('<div id="waw">Aduh... ane ga bisa ngitung :hammer:</div>');
 	  }
 	});
 }
@@ -286,11 +285,11 @@ function rerun(){
 (function () {
 
 function parsing_dat(){
+	$('#qr_prepost_submit').attr({'disabled':'disabled'});
 	var teks = template_wrapper($("#vB_Editor_001_textarea").val());
-	var gat = teks.replace("\"", "'")
-	$('#vB_Editor_001_textarea').attr({ name : 'iseng' });
-	$('#vB_Editor_001_textarea').after("<input type='hidden' name='message' value='"+teks+"'/>");
+	$('#vB_Editor_001_textarea').val(teks);
 	window.setTimeout('document.forms["vbform"].submit()',500);
+	//$('.sayapkiri .waw').html('<div id="waw">Sabar gan ! :D</div>');
 }
 
 // Initialize Global Variables
@@ -6985,7 +6984,7 @@ Format will be valid like this:
     
     +'<div class="sub-bottom sayapkiri">'
      +'<div id="rate_thread" style="display:none;" title="initializing additional opt"><img src="'+gvar.B.throbber_gif+'" border="0"/></div>'
-    +'&nbsp;</div>\n'
+    +'&nbsp; <div class="waw"></div></div>\n'
     +'<div class="sub-bottom sayapkanan">'
     +'<input id="chk_fixups" tabindex="7" type="checkbox" '+(gvar.settings.widethread ? 'checked="checked"':'')+'/><a href="javascript:;"><label title="Wider Thread with Kaskus Fixups" for="chk_fixups">Expand</label></a>'
     +'</div>'
