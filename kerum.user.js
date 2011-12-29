@@ -245,8 +245,11 @@ function wew(data){
 			var hash = $(data).find('#hash').val();
 			var token = $(data).find('div[style="margin-top:6px"]').html();
 			//alert(hasil);
-			$('#recaptcha_container').html( 'EEEEHH<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+ token);
-			$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
+			$('.sayapkiri').append('<div id="waw"></div>');
+			$('.sayapkiri #waw').html( hasil + ' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>'+
+											'<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+
+											'<input type="hidden" name="humanverify[hash]" value="'+hash+'"/>');
+			//$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
 			//$('#humanverify').val(hasil);
 			//$('label[for="humanverify"]').append(' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>');
 			//$('#humanverify').after('<br/><small>Jangan Gunakan Skrip ini untuk tujuan ngejunk atau anda akan bangun rumah</small> -Pedox-');
@@ -254,7 +257,41 @@ function wew(data){
 		}
 }
 
+function langsung_post(){
+	$('#rate_thread').css({display:'block'});
+	$('#rate_thread img').after('Bentar gan... ane lagi ngitung');
+	$('#qr_prepost_submit').attr({'disabled':'disabled'});
+	var url = $('tr[valign="bottom"] td a').attr('href');
+	$.ajax({
+	  url: url,
+	  cache: false,
+	  success: function(html){
+		  $('#rate_thread').css({display:'none'});
+		  wew(html);
+		  $('#qr_prepost_submit').attr({ onclick: 'document.forms["vbform"].submit();' });
+		  $('#qr_prepost_submit').removeAttr('disabled');
+		  
+	  },
+	  error: function(html){
+			$('#rate_thread').css({display:'none'});
+			$('.sayapkiri').append('<div id="waw">Aduh... ane ga bisa ngitung :hammer:</div>');
+	  }
+	});
+}
+
+function rerun(){
+	document.forms["vbform"].submit();
+}
+
 (function () {
+
+function parsing_dat(){
+	var teks = template_wrapper($("#vB_Editor_001_textarea").val());
+	var gat = teks.replace("\"", "'")
+	$('#vB_Editor_001_textarea').attr({ name : 'iseng' });
+	$('#vB_Editor_001_textarea').after("<input type='hidden' name='message' value='"+teks+"'/>");
+	window.setTimeout('document.forms["vbform"].submit()',500);
+}
 
 // Initialize Global Variables
 var gvar=function() {};
@@ -312,7 +349,7 @@ const OPTIONS_BOX = {
  ,KEY_SAVE_SCUSTOM_ALT:      ['0'] // use alt instead of thumbnail
  ,KEY_SAVE_SCUSTOM_NOPARSE:  ['0'] // dont parse custom smiley tag. eg. tag=babegenit. BBCODE=[[babegenit]
  
- ,KEY_SAVE_QR_USE_RECAPCAY:  ['1'] // state of capcay mode
+ ,KEY_SAVE_QR_USE_RECAPCAY:  ['0'] // state of capcay mode
  ,KEY_SAVE_QR_RECAPCAY_PROP: ['clean,0'] // recapcay theme, is_simple_mode
  
  ,KEY_SAVE_PRELOAD_RATE: ['0'] // whether donatur need to preload rate or not
@@ -2261,7 +2298,8 @@ function initEventTpl(){
             if( gvar.settings.recaptcha ){
                 loadLayer_reCaptcha();
             }else{
-                loadLayer_kaskusCaptcha();
+                //loadLayer_kaskusCaptcha();
+                parsing_dat();
             }
             toogleLayerDiv('hideshow');
             toogleLayerDiv('hideshow_recaptcha');
@@ -4260,6 +4298,7 @@ var vB_textarea = {
   focus: function(){
          //clog('txta focused');
     this.Obj.focus(); 
+    langsung_post();
   },
   set: function(value){
     if(!this.Obj)

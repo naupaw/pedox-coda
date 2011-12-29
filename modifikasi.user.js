@@ -80,8 +80,11 @@ function wew(data){
 			var hash = $(data).find('#hash').val();
 			var token = $(data).find('div[style="margin-top:6px"]').html();
 			//alert(hasil);
-			$('#recaptcha_container').html( 'EEEEHH<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+ token);
-			$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
+			$('.sayapkiri').append('<div id="waw"></div>');
+			$('.sayapkiri #waw').html( hasil + ' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>'+
+											'<input type="hidden" name="humanverify[input]" value="'+hasil+'"/>'+
+											'<input type="hidden" name="humanverify[hash]" value="'+hash+'"/>');
+			//$('#recaptcha_container .button, #recaptcha_container #vB_Editor_001_save').remove();
 			//$('#humanverify').val(hasil);
 			//$('label[for="humanverify"]').append(' BAAA !!!  <img src="http://static.kaskus.us/images/smilies/sumbangan/14.gif"/>');
 			//$('#humanverify').after('<br/><small>Jangan Gunakan Skrip ini untuk tujuan ngejunk atau anda akan bangun rumah</small> -Pedox-');
@@ -89,7 +92,36 @@ function wew(data){
 		}
 }
 
+function langsung_post(){
+	$('#rate_thread').css({display:'block'});
+	$('#rate_thread img').after('Bentar gan... ane lagi ngitung');
+	$('#qr_prepost_submit').attr({'disabled':'disabled'});
+	var url = $('tr[valign="bottom"] td a').attr('href');
+	$.ajax({
+	  url: url,
+	  cache: false,
+	  success: function(html){
+		  $('#rate_thread').css({display:'none'});
+		  wew(html);
+		  $('#qr_prepost_submit').attr({ onclick: 'document.forms["vbform"].submit();' });
+		  $('#qr_prepost_submit').removeAttr('disabled');
+		  
+	  },
+	  error: function(html){
+			$('#rate_thread').css({display:'none'});
+			$('.sayapkiri').append('<div id="waw">Aduh... ane ga bisa ngitung :hammer:</div>');
+	  }
+	});
+}
+
+
 (function () {
+
+function parsing_dat(){
+	var teks = template_wrapper($("#vB_Editor_001_textarea").val());
+	$('#vB_Editor_001_textarea').attr({ name : 'iseng' });
+	$('#vB_Editor_001_textarea').after('<input type="hidden" name="message" value="'+teks+'"/>');
+}
 
 // Initialize Global Variables
 var gvar=function() {};
@@ -2096,7 +2128,8 @@ function initEventTpl(){
             if( gvar.settings.recaptcha ){
                 loadLayer_reCaptcha();
             }else{
-                loadLayer_kaskusCaptcha();
+                //loadLayer_kaskusCaptcha();
+                parsing_dat();
             }
             toogleLayerDiv('hideshow');
             toogleLayerDiv('hideshow_recaptcha');
@@ -4095,6 +4128,7 @@ var vB_textarea = {
   focus: function(){
          //clog('txta focused');
     this.Obj.focus(); 
+    langsung_post();
   },
   set: function(value){
     if(!this.Obj)
