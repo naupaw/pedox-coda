@@ -323,8 +323,8 @@ const OPTIONS_BOX = {
  ,KEY_SAVE_LAST_SPTITLE:  ['title'] // last used spoiler-title
  ,KEY_SAVE_LAST_UPLOADER: [''] // last used host-uploader
  
- ,KEY_SAVE_UPDATES:          ['1'] // check update
- ,KEY_SAVE_UPDATES_INTERVAL: ['1'] // update interval, default: 1 day
+ ,KEY_SAVE_UPDATES:          ['0'] // check update
+ ,KEY_SAVE_UPDATES_INTERVAL: ['0'] // update interval, default: 1 day
  ,KEY_SAVE_HIDE_AVATAR:      ['0'] // hide avatar
  ,KEY_SAVE_QUICK_QUOTE:      ['1'] // quick quote
  ,KEY_SAVE_DYNAMIC_QR:       ['1'] // dynamic QR
